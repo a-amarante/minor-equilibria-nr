@@ -1,0 +1,90 @@
+)O+_06 Integration parameters  (WARNING: Do not delete this line!!)
+) Lines beginning with `)' are ignored.
+) Note: densities must be in same unit distance of vertices!
+) Author:        Andre Amarante Luiz        (A. Amarante)     - a.amarante.br@gmail.com
+) Last modification: 09/15/2020
+)---------------------------------------------------------------------
+) Integration options:
+)---------------------------------------------------------------------
+ minimum point x = -0.35
+ maximum point x =  0.35
+ minimum point y = -0.35
+ maximum point y =  0.35
+ minimum point z = -0.05
+ maximum point z =  0.05
+ number of subdivisions in x = 7
+ number of subdivisions in y = 7
+ number of subdivisions in z = 1
+ accuracy of the equilibrium point = 1.0d-5
+ accuracy criteria (spider method --> vn -> 0, f/f' -> 1) = 0
+ maximum number of iterations (for NR and Spider methods) = 50000
+ use Newton-Raphson method 1-D = no
+ use Newton-Raphson method 3-D = no
+ use Spider method = yes
+ delta's radius (spider method) (0=automatic/random) = 0.001
+ delta's radius percentage for next iteration (spider method) = 50.0
+)---------------------------------------------------------------------
+) These parameters do not need to be adjusted often:
+)---------------------------------------------------------------------
+ accuracy of polyhedron method = 1e-10
+ use mascons' method = no
+ use potential from cubic file = no
+ x-size = 1.2d-2
+ y-size = 1.2d-2
+ z-size = 1.2d-2
+)---------------------------------------------------------------------
+ equilibria output format (0 -> old / 1 -> new) = 0
+ make equilibria stability = yes
+)---------------------------------------------------------------------
+ accuracy of identical equilibrium points = 1.0d-4
+ allow points outside boxes (spider method) = no
+ initial density (mass_unit/distance_unit^3) = 1.19d12
+ final density (mass_unit/distance_unit^3) = 1.19d12
+ density decrement/increment (mass_unit/distance_unit^3) = 0.1d12
+ initial rotation period (hours) = 4.296057d0
+ final rotation period (hours) = 4.296057d0
+ rotation period decrement/increment (hours) = 0.01d0
+ use conservation of angular momentum (for variation in the rotation period) = no
+ factor = 1.0
+ a (distance_unit)= 0
+ b (distance_unit)= 0
+ c (distance_unit)= 0
+) a (distance_unit)= 0.29
+) b (distance_unit)= 0.29
+) c (distance_unit)= 0.29
+)---------------------------------------------------------------------
+ gravitational constant (distance_unit^3/time_unit^2/mass_unit) = 6.67428d-20
+)---------------------------------------------------------------------
+ stop integration by collapsed equilibrium point = no
+ minimum distance between points = 1.0d0
+ stop integration by first shedding = no
+ minimum distance between surface= 1.0d0
+)---------------------------------------------------------------------
+ print output messages = no
+)---------------------------------------------------------------------
+) Solar Radiation Pressure (SRP)
+)---------------------------------------------------------------------
+ use Solar Radiation Pressure = no
+ sun initial angle (degrees) = 0.d0
+ sun final angle (degrees) = 330.d0
+ sun angle increment (degrees) = 30.d0
+ sun mass (mass_unit) = 1.9891d30
+ asteroid initial angle (degrees) = 0.d0
+ asteroid final angle (degrees) = 356.4d0
+ asteroid angle increment (degrees) = 3.6d0
+) Sun coordinates:
+) Cartesian
+)  0. 0. 0.
+)  0. 0. 0.
+ Asteroidal
+  168507040.768 0.20375 6.0349
+  66.2231       182.0609  101.7039
+ average over the solar spectrum   = 1.0
+ initial particle radius (distance_unit) = 1.0d-7
+ final particle radius (distance_unit) = 1.0d-6
+ particle radius increment (distance_unit) = 1.0d-7
+ S0 (mass_unit/time_unit^3)  = 1.36d3
+ astronomical unit (distance_unit)  = 1.495978707d8
+ obliquity of central body (degrees) = 177.6
+ speed of light (distance_unit/time_unit) = 299792.197442722
+ cylindrical shadow radius (distance_unit) (use negative value to turn off) = 0.29

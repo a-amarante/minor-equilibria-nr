@@ -1,0 +1,60 @@
+  1  8  ERROR:
+  2 34 This file is needed to continue:  
+  3 30 This filename is duplicated: 
+  4 22        Check files.in
+  5 27 This file already exists:  
+  6 50 A problem occurred reading the parameter on line
+  7 57        Check the file containing integration parameters.
+  8 47    Continuing integration from restart file at 
+  9 23  box. Rotation period: 
+ 10 24    Integration complete.
+ 11 34    Finding the equilibrium points.
+ 12 51 The total number of equilibrium points exceeds NEQ.
+ 13 60        Modify equilibrium.inc and recompile Equilibrium.for.
+ 14 44 The total number of centroids exceeds nocen.
+ 15 44 The total number of vertices exceeds novmax.
+ 16 41 The total number of faces exceeds nopmax.
+ 17 42        Check the file containing vertices.
+ 18 39        Check the file containing faces.
+ 19 43 Vertice 0 found! Must be start at 1. Line: 
+ 20 10  Density: 
+ 21  1 ,
+ 22  1 )
+ 23  1 (
+ 24 26  Center of mass (c.o.m.)=  
+ 25 39  Inertia tensor with origin at c.o.m. :
+ 26 22  Polyhedron's mass  = 
+ 27 22  Volumetric radius  = 
+ 28 22  Polyhedron's volume= 
+ 29 13 Eigenvalues: 
+ 30 58  Normalized Eigenvectors (in columns):
+ 31 21 CubicCoeffs[3,2,1,0]=
+ 32 33 CubicRoots:  negative determinant
+ 33  7 lox,lo=
+ 34  7 hix,hi=
+ 35 37 VolIntBinSearchCubicRoot:  Bad inputs
+ 36 51 VolIntBinSearchCubicRoot:  exceeded 1000 iterations
+ 37 45 Cannot solve for eigenvectors; probably X,Y,Z
+ 38 49  Normalized Eigenvectors in Lat & WLon (degrees):
+ 39 26 W   (Lat, WLon in degrees)
+ 40 60  Principal moments of inertia (normalized by the body mass):
+ 41 35  Equivalent Ellipsoid (a x b x c): 
+ 42  3  x 
+ 43 37  Main gravity coefficients (C20,C22):
+ 44 30  Mass-distribution parameter: 
+ 45  7  C20 = 
+ 46  7  C22 = 
+ 47 23  Number of vertices  = 
+ 48 23  Number of faces     = 
+ 49 23  Number of centroids = 
+ 50 15  Inertia axes: 
+ 51 56    Stopping integration by Collapsed Equilibrium Point. 
+ 52 43    Stopping integration by First Shedding. 
+ 53 57    Minimum distance, rotational period, density and box: 
+ 54 54 Data style must be Cartesian, Asteroidal or Cometary. 
+ 55 17  Asteroid angle: 
+ 56 12  Sun angle: 
+ 57  0 
+ 58  0 
+ 59  0 
+ 60  0 
