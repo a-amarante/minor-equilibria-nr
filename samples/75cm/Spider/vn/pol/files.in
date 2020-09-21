@@ -1,6 +1,6 @@
- ./input/vertex.in
- ./input/face.in
+ /home/amarante/input/Asteroid/Bennu/vertex3.in
+ /home/amarante/input/Asteroid/Bennu/face3.in
  equilibrium.in
- ./input/message.in
- ./input/cube.in
+ /home/amarante/styx/code/minor-equilibria-rl/message.in
+ /home/amarante/input/Asteroid/Bennu/cube3.in
  restart.dmp

@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -N spider_vn_pol
+#PBS -l ncpus=1
+#PBS -l walltime=336:00:00
+#PBS -oe
+#PBS -m abe
+#PBS -M andre.amarante@unesp.br
+module load intel
+cd me/Equilibrium/simulations/Bennu/4.296057/1.19/spider/vn/pol
+[ -f "job.running" ] || echo -n > "job.running"
+(nice -n 19 /home/amarante/styx/bin/minor-equilibria-nr_gfort; unlink /home/amarante/me/Equilibrium/simulations/Bennu/4.296057/1.19/spider/vn/pol/job.running)
