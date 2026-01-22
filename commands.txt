@@ -1,0 +1,5 @@
+rm -rf *.dmp *.o *out
+#gfortran inverse.for minor-equilibria-nr.for -o minor-equilibria-nr
+make clean
+make all
+./minor-equilibria-nr

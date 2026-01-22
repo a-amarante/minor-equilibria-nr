@@ -1,0 +1,292 @@
+#!/usr/bin/python2
+# coding=utf-8
+###############################################################################
+#
+#      PROOTS    (FEG  25 Ago 2016)
+#
+###############################################################################
+#
+# Authors: André Amarante Luiz (A.   Amarante)   andre@sjrp.unesp.br
+#          Othon Cabo Winter   (O.C. Winter)     ocwinter@gmail.com
+# Date: 08/25/2016
+# Last modification: 10/10/2016
+#
+# Description: Find polynomial roots.
+#
+###############################################################################
+
+#------------------------------------------------------------------------------
+# imports
+
+import sys, getopt
+import glob, os
+import re
+import numpy as np
+import math as m
+
+#------------------------------------------------------------------------------
+# Main program
+
+def main(argv):
+
+#   inputfile = ''
+#   outputfile = ''
+#   try:
+#      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+#   except getopt.GetoptError:
+#      print 'test.py -i <inputfile> -o <outputfile>'
+#      sys.exit(2)
+#   for opt, arg in opts:
+#      if opt == '-h':
+#         print 'test.py -i <inputfile> -o <outputfile>'
+#         sys.exit()
+#      elif opt in ("-i", "--ifile"):
+#         inputfile = arg
+#      elif opt in ("-o", "--ofile"):
+#         outputfile = arg
+#   print 'Input file is "', inputfile
+#   print 'Output file is "', outputfile
+
+    if len(sys.argv) <= 1:
+      print '  PROOTS takes 1 arguments on the command line.'
+      print '  Find polynomial roots.'
+      print '  #1: choose filenames in a directory.'
+      print '  e.g. proots \'*matrix.out\''
+    else:
+
+#      np.set_printoptions(precision=15)
+
+      V = [[0 for x in range(3)] for y in range(3)]
+      C = [0 for x in range(7)]
+      S = [0 for x in range(100)]
+
+#      files = get_filepaths("./")
+      files = get_files("./",sys.argv[1])
+#      files = sorted(files)
+      files = sorted_nicely (files)
+
+      for i in range(len(files)):
+        S[i] = 0
+
+      print ("\n")
+      l = 0
+      for file in files:
+#        path, file = os.path.split(files)
+#        print path, file
+        print file
+        try:
+          fopen = open(file,"r") # open file for reading
+        except IOError:
+          print("Can't open file %s" %(file))
+          sys.exit(0) # stop program
+        input = fopen.readlines() # read all lines in a file
+        fopen.close() # close file
+#        print (len(input)) # number of lines in a file
+#        V = [[]] # initialize empty array
+        i = 0
+        for line in input:
+#          print (len(line)) # number of characters + \n
+#          print (len(line.split())) # number of substrings
+          c = line.split()
+#          print (len(c)) # number of substrings
+#          c = split_line(line,"r'[\s]\s*'")
+#          for i in range(len(c)):
+#            print c[i]
+          if i==0:
+            w = float(c[0])
+          else:
+            for j in range(len(c)):
+              V[i-1][j] = float(c[j])
+#              print i-1,j,V[i-1][j]
+          i += 1
+
+        V[0][0] = V[0][0] -w*w
+        V[1][1] = V[1][1] -w*w
+
+# characterist polynomial coefficients (paper Yu Jiang, Hexi Baoyin, Junfeng Li and Hengnian Li. Orbits and manifolds near equilibrium points around a rotating asteroid. Astrophys Space Sci (2014) 349:83-106 (pg. 16, eq. 14)
+        C[0] = 1.0
+        C[1] = 0.0
+        C[2] = V[0][0]+V[1][1]+V[2][2]+4*w*w
+        C[3] = 0.0
+        C[4] = (V[0][0]*V[1][1]+V[1][1]*V[2][2]+V[2][2]*V[0][0])-(V[0][1]*V[0][1]+V[1][2]*V[1][2]+V[0][2]*V[0][2])+4*w*w*V[2][2]
+        C[5] = 0.0
+        C[6] = (V[0][0]*V[1][1]*V[2][2])+(2*V[0][1]*V[1][2]*V[0][2])-(V[0][0]*V[1][2]*V[1][2]+V[1][1]*V[0][2]*V[0][2]+V[2][2]*V[0][1]*V[0][1])
+
+#        for i in range(len(C)):
+#          print ("{:.15e}".format(C[i])),
+#        print ("\n")
+
+#        print C
+#        print(np.roots(C))
+
+        P = np.array(np.roots(C), dtype=complex)
+        for i in range(len(P)):
+          if (abs(P[i].real)<=1.0e-15):
+            P[i] = complex(0.0,P[i].imag)
+          if (abs(P[i].imag)<=1.0e-15):
+            P[i] = complex(P[i].real,0.0)
+          print ("{:.15e}\n".format(P[i])),
+          if (P[i].real != 0):
+            S[l] = 1
+
+        if (S[l]==1):
+          print ("UNSTABLE\n")
+        else:
+          print ("STABLE\n")
+          S[l] = -1
+
+        l += 1
+        print ("\n")
+
+      soma = 0
+      somau = 0
+      somas = 0
+      for i in range(l):
+        soma += S[i]
+        if (S[i]==1):
+          somau += S[i]
+        else:
+          somas += S[i]
+
+      if (soma==l):
+        print "TYPE OF STABILITY: II\n"
+      else:
+        print "TYPE OF STABILITY: I\n"
+      print "UNSTABLE POINTS: %d"   % somau
+      print "STABLE POINTS:   %d\n" % abs(somas)
+
+#        P = np.array(np.roots(C), dtype=complex)
+
+#        print(np.poly(P))
+
+#        if (k==1):
+#          R[0] =  0.000 + 0.323e-3j
+#          R[1] =  0.000 - 0.323e-3j
+#          R[2] =  0.202e-3 + 0.306e-3j
+#          R[3] =  0.202e-3 - 0.306e-3j
+#          R[4] = -0.202e-3 + 0.306e-3j
+#          R[5] = -0.202e-3 - 0.306e-3j
+#        elif (k==2):
+#          R[0] =  0.422e-3 + 0.0
+#          R[1] = -0.422e-3 - 0.0
+#          R[2] =  0.000 + 0.414e-3j
+#          R[3] =  0.000 - 0.414e-3j
+#          R[4] =  0.000 + 0.466e-3j
+#          R[5] =  0.000 - 0.466e-3j
+#        elif (k==6):
+#          R[0] =  0.376e-3 + 0.0
+#          R[1] = -0.376e-3 - 0.0
+#          R[2] =  0.000 + 0.413e-3j
+#          R[3] =  0.000 - 0.413e-3j
+#          R[4] =  0.000 + 0.425e-3j
+#          R[5] =  0.000 - 0.425e-3j
+#        elif (k==7):
+#          R[0] =  0.000 + 0.327e-3j
+#          R[1] =  0.000 - 0.327e-3j
+#          R[2] =  0.202e-3 + 0.304e-3j
+#          R[3] =  0.202e-3 - 0.304e-3j
+#         R[4] = -0.202e-3 + 0.304e-3j
+#          R[5] = -0.202e-3 - 0.304e-3j
+#        else:
+#          R[0] =  0.0
+#          R[1] =  0.0
+#          R[2] =  0.0
+#          R[3] =  0.0
+#          R[4] =  0.0
+#          R[5] =  0.0
+
+#        print R
+#        print(np.poly(R))
+
+#        A = np.poly(R)
+#        T = np.roots(A)
+#        print T
+
+
+#        A = np.array(np.roots(C), dtype=complex)
+
+#        print(A)
+
+#        C[0] = 1.0
+#        C[1] = 0.0
+#        C[2] = 1.0
+#        C[3] = 1.0
+
+
+#        print C
+
+#        print(np.roots(C))
+
+#        P = np.array(np.roots(C), dtype=complex)
+
+#        P = np.array([0.0+1.0j, 0.0-1.0j])
+#        print(np.poly(P))
+
+
+#------------------------------------------------------------------------------
+# subroutines
+
+def get_filepaths(directory):
+
+    """
+    This function will generate the file names in a directory 
+    tree by walking the tree either top-down or bottom-up. For each 
+    directory in the tree rooted at directory top (including top itself), 
+    it yields a 3-tuple (dirpath, dirnames, filenames).
+    """
+    file_paths = []  # List which will store all of the full filepaths.
+
+    # Walk the tree.
+    for root, directories, files in os.walk(directory):
+        for filename in files:
+            # Join the two strings in order to form the full filepath.
+            filepath = os.path.join(root, filename)
+            file_paths.append(filepath)  # Add it to the list.
+
+    return file_paths  # Self-explanatory.
+
+#------------------------------------------------------------------------------
+
+def get_files(directory,ext):
+
+    files = [] # initialize empty array
+#    for file in os.listdir(directory):
+#      if file.endswith(ext):
+#         files.append(file)
+    os.chdir(directory)
+    for file in glob.glob(ext):
+      files.append(file)
+
+    return files
+
+#------------------------------------------------------------------------------
+
+def split_line(text,delim):
+
+    # split the text
+#    words = text.split(delim)
+    words = re.split(delim,text)
+    # for each word in the line:
+#    for word in words:
+        # print the word
+#        print(word)
+
+    return words
+
+#------------------------------------------------------------------------------
+
+def sorted_nicely( l ):
+    """ Sorts the given iterable in the way that is expected.
+ 
+    Required arguments:
+    l -- The iterable to be sorted.  
+
+    """
+    convert = lambda text: int(text) if text.isdigit() else text
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    return sorted(l, key = alphanum_key)
+
+#------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
